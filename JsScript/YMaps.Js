@@ -23,8 +23,6 @@ function init () {
             
             var firstGeoObject = res.geoObjects.get(0),
             bounds = firstGeoObject.properties.get('boundedBy');
-            console.log(firstGeoObject);
-            console.log(bounds);
 
             firstGeoObject.options.set('preset', 'islands#darkBlueDotIconWithCaption');
             firstGeoObject.properties.set('iconCaption', firstGeoObject.getAddressLine());
