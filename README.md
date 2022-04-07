@@ -11,3 +11,5 @@ We create an extension from the card page where we will add the Control Addin. I
 
 # PS
 This map get the client address and searches through the yandex api and displays the result.
+
+#Microsoft #Dynamics365 #BusinessCentral
