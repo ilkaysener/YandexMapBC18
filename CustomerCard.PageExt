@@ -1,0 +1,44 @@
+pageextension 50044 "SerCustomerCard.PageExt" extends "Customer Card"
+{
+    layout
+    {
+        addlast("Address & Contact")
+        {
+            group("Yandex Map")
+            {
+                usercontrol(YMaps; YMaps)
+                {
+                    ApplicationArea = All;
+                    trigger OnReady()
+                    begin
+                        GetAddr();
+                    end;
+                }
+            }
+        }
+    }
+
+    local procedure GetAddr()
+    var
+        CustData: JsonObject;
+        CountryRec: Record "Country/Region";
+        addr: Text;
+    begin
+        if StrLen(Rec.Address) > 0 then
+            addr := Rec.Address;
+        if StrLen(Rec."Address 2") > 0 then
+            addr := addr + ' ' + Rec."Address 2";
+        if StrLen(Rec.City) > 0 then
+            addr := addr + ' ' + Rec.City;
+        /* if StrLen(Rec."Post Code") > 0 then
+            addr := addr + ' ' + Rec."Post Code"; */
+
+        CountryRec.Reset();
+        CountryRec.SetRange(Code, Rec."Country/Region Code");
+        if CountryRec.FindFirst() then
+            addr := addr + ',' + CountryRec.Name;
+
+        CustData.Add('addr', addr);
+        CurrPage.YMaps.GetAddr(CustData);
+    end;
+}
